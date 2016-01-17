@@ -13,4 +13,13 @@
         android:background="#90000000"
         />
 
+    <TextView
+        android:id="@+id/widget_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/widget_empty"
+        android:textSize="@dimen/widget_score"
+        />
+
 </FrameLayout>

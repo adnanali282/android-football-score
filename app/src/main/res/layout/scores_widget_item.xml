@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/half_margins"
+    android:id="@+id/widget_item_container"
     >
 
     <TextView

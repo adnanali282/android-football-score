@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.db.DatabaseContract;
 import barqsoft.footballscores.R;
 
 /**
@@ -48,6 +48,7 @@ public class myFetchService extends IntentService
 
     private void getData(String timeFrame)
     {
+        String token = getApplicationContext().getString(R.string.api_key);
         //Creating fetch URL
         final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
         final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
@@ -65,7 +66,7 @@ public class myFetchService extends IntentService
             URL fetch = new URL(fetch_build.toString());
             m_connection = (HttpURLConnection) fetch.openConnection();
             m_connection.setRequestMethod("GET");
-            m_connection.addRequestProperty("X-Auth-Token", getString(R.string.api_key));
+            m_connection.addRequestProperty("X-Auth-Token", token);
             m_connection.connect();
 
             // Read the input stream into a String
@@ -126,11 +127,10 @@ public class myFetchService extends IntentService
                 {
                     //if there is no data, call the function on dummy data
                     //this is expected behavior during the off season.
-                    processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
+                    //processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
                     return;
                 }
-
-
+                Log.d("kaushik", "data=" + JSON_data);
                 processJSONdata(JSON_data, getApplicationContext(), true);
             }
             else

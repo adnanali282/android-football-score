@@ -103,7 +103,7 @@ public class scoresAdapter extends CursorAdapter
     {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        shareIntent.setType("text/plain");
+        shareIntent.setType("mText/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, ShareText + FOOTBALL_SCORES_HASHTAG);
         return shareIntent;
     }

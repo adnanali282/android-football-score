@@ -56,7 +56,7 @@ public class myFetchService extends IntentService
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        //Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
+        Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
         HttpURLConnection m_connection = null;
         BufferedReader reader = null;
         String JSON_data = null;
@@ -130,7 +130,6 @@ public class myFetchService extends IntentService
                     //processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
                     return;
                 }
-                Log.d("kaushik", "data=" + JSON_data);
                 processJSONdata(JSON_data, getApplicationContext(), true);
             }
             else
@@ -237,6 +236,7 @@ public class myFetchService extends IntentService
                         mTime = mDate.substring(mDate.indexOf(":") + 1);
                         mDate = mDate.substring(0, mDate.indexOf(":"));
 
+                        Log.d(LOG_TAG, "date=" + mDate);
                         if(! isReal)
                         {
                             //This if statement changes the dummy data's date to match our
@@ -245,6 +245,7 @@ public class myFetchService extends IntentService
                                     86400000));
                             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
                             mDate = mformat.format(fragmentdate);
+
                         }
                     }
                     catch(Exception e)

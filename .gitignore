@@ -40,3 +40,4 @@ proguard/
 
 #idea folder
 .idea/
+app/src/main/res/values/keys.xml

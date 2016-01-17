@@ -46,29 +46,28 @@ public class ScoreWidgetRemoteViewFactory implements RemoteViewsService.RemoteVi
     @Override
     public void onDataSetChanged()
     {
+        Log.d(LOG_TAG, "onDataSetChanged::");
+        if(mCursor != null)
+        {
+            mCursor.close();
+            mCursor = null;
+        }
+
         Date fragmentdate = new Date(System.currentTimeMillis());
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
-        String[] selectionArgDate = new String[1];
+        final String[] selectionArgDate = new String[1];
         selectionArgDate[0] = mformat.format(fragmentdate);
 
         Uri uri = DatabaseContract.scores_table.buildScoreWithDate();
         mCursor = mContext.getContentResolver().query(uri, null, null, selectionArgDate, null);
-
-        if(mCursor == null)
-        {
-            Log.d(LOG_TAG, "Widget - Cursor null");
-            return;
-        }
         mCount = mCursor.getCount();
     }
 
     @Override
     public void onDestroy()
     {
-        if(mCursor != null)
-        {
-            mCursor.close();
-        }
+        mCursor.close();
+        mCursor = null;
     }
 
     @Override

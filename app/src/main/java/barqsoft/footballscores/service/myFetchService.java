@@ -236,7 +236,7 @@ public class myFetchService extends IntentService
                         mTime = mDate.substring(mDate.indexOf(":") + 1);
                         mDate = mDate.substring(0, mDate.indexOf(":"));
 
-                        Log.d(LOG_TAG, "date=" + mDate);
+                        //Log.d(LOG_TAG, "date=" + mDate);
                         if(! isReal)
                         {
                             //This if statement changes the dummy data's date to match our

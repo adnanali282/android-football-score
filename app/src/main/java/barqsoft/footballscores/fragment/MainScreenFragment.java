@@ -17,7 +17,7 @@ import barqsoft.footballscores.R;
 import barqsoft.footballscores.viewholder.ViewHolder;
 import barqsoft.footballscores.activity.MainActivity;
 import barqsoft.footballscores.db.DatabaseContract;
-import barqsoft.footballscores.db.scoresAdapter;
+import barqsoft.footballscores.db.ScoresAdapter;
 import barqsoft.footballscores.service.myFetchService;
 
 /**
@@ -26,7 +26,7 @@ import barqsoft.footballscores.service.myFetchService;
 public class MainScreenFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
     public static final int SCORES_LOADER = 0;
-    public scoresAdapter mAdapter;
+    public ScoresAdapter mAdapter;
     private String[] fragmentdate = new String[1];
     private int last_selected_item = - 1;
 
@@ -52,7 +52,7 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
         update_scores();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         final ListView score_list = (ListView) rootView.findViewById(R.id.scores_list);
-        mAdapter = new scoresAdapter(getActivity(), null, 0);
+        mAdapter = new ScoresAdapter(getActivity(), null, 0);
         score_list.setAdapter(mAdapter);
         getLoaderManager().initLoader(SCORES_LOADER, null, this);
         mAdapter.detail_match_id = MainActivity.selected_match_id;

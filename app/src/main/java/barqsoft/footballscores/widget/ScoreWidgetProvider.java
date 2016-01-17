@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -17,12 +18,15 @@ import barqsoft.footballscores.R;
  */
 public class ScoreWidgetProvider extends AppWidgetProvider
 {
+    private static final String LOG_TAG = ScoreWidgetProvider.class.getSimpleName();
+
     public static final String TOAST_ACTION = "com.example.android.footballscores.TOAST_ACTION";
     public static final String EXTRA_ITEM = "com.example.android.footballscores.EXTRA_ITEM";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {
+        Log.d(LOG_TAG, "onUpdate::" + appWidgetIds.length);
         // update each of the widgets with the remote adapter
         for (int i = 0; i < appWidgetIds.length; ++i) {
 
@@ -34,11 +38,11 @@ public class ScoreWidgetProvider extends AppWidgetProvider
             // into the data so that the extras will not be ignored.
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
             RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.scores_widget_layout);
-            rv.setRemoteAdapter(appWidgetIds[i], R.id.stack_view, intent);
+            rv.setRemoteAdapter(appWidgetIds[i], R.id.widget_list_view, intent);
 
             // The empty view is displayed when the collection has no items. It should be a sibling
             // of the collection view.
-            rv.setEmptyView(R.id.stack_view, R.id.empty_view);
+            //rv.setEmptyView(R.id.stack_view, R.id.empty_view);
 
             // Here we setup the a pending intent template. Individuals items of a collection
             // cannot setup their own pending intents, instead, the collection as a whole can
@@ -50,7 +54,7 @@ public class ScoreWidgetProvider extends AppWidgetProvider
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
             PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-            rv.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
+            rv.setPendingIntentTemplate(R.id.widget_list_view, toastPendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
         }
@@ -85,6 +89,7 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        Log.d(LOG_TAG, "onReceive");
         AppWidgetManager mgr = AppWidgetManager.getInstance(context);
         if (intent.getAction().equals(TOAST_ACTION)) {
             int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,

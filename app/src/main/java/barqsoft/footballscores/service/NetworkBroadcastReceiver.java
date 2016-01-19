@@ -18,7 +18,16 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver
     private static final String LOG_TAG = NetworkBroadcastReceiver.class.getSimpleName();
 
     private Context mContext;
-    private Handler mHandler = new Handler();
+    private static Handler mHandler;
+
+    public static Handler getHandler()
+    {
+        if(mHandler == null)
+        {
+            mHandler = new Handler();
+        }
+        return mHandler;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -33,15 +42,15 @@ public class NetworkBroadcastReceiver extends BroadcastReceiver
             if(networkInfo != null && networkInfo.isConnectedOrConnecting())
             {
                 Log.i(LOG_TAG, "Network " + networkInfo.getTypeName() + " connected");
-                mHandler.removeCallbacksAndMessages(null);
-                mHandler.postDelayed(new Runnable()
+                getHandler().removeCallbacksAndMessages(null);
+                getHandler().postDelayed(new Runnable()
                 {
                     @Override
                     public void run()
                     {
                         triggerConnected();
                     }
-                }, 1000*60*2);
+                }, 1000 * 60);
             }
             else if(intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean
                     .FALSE))

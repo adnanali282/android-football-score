@@ -11,6 +11,8 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.util.AlarmUtil;
+import barqsoft.footballscores.util.AppSharedPref;
 
 /**
  * Created by roide on 1/16/16.
@@ -62,18 +64,27 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     public void onDeleted(Context context, int[] appWidgetIds)
     {
         super.onDeleted(context, appWidgetIds);
+        Log.d(LOG_TAG, "onDelete");
     }
 
     @Override
     public void onEnabled(Context context)
     {
         super.onEnabled(context);
+        Log.d(LOG_TAG, "widget:Enabled");
+        AppSharedPref.setHasWidgets(true, context);
+        AlarmUtil.enableBootReceiver(true, context);
+        AlarmUtil.setupAlarm(context);
     }
 
     @Override
     public void onDisabled(Context context)
     {
         super.onDisabled(context);
+        Log.d(LOG_TAG, "Widget:Disabled");
+        AlarmUtil.enableBootReceiver(false, context);
+        AlarmUtil.cancelAlarm(context);
+        AppSharedPref.setHasWidgets(false, context);
     }
 
     @Override
@@ -95,5 +106,6 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     public void onRestored(Context context, int[] oldWidgetIds, int[] newWidgetIds)
     {
         super.onRestored(context, oldWidgetIds, newWidgetIds);
+        Log.d(LOG_TAG, "onRestored");
     }
 }

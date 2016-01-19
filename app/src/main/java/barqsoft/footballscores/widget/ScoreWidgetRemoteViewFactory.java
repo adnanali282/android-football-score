@@ -66,7 +66,10 @@ public class ScoreWidgetRemoteViewFactory implements RemoteViewsService.RemoteVi
     @Override
     public void onDestroy()
     {
-        mCursor.close();
+        if(mCursor != null)
+        {
+            mCursor.close();
+        }
         mCursor = null;
     }
 

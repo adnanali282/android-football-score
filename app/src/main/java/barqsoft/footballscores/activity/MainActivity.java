@@ -9,6 +9,8 @@ import android.view.MenuItem;
 
 import barqsoft.footballscores.fragment.PagerFragment;
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.service.ScoreFetchService;
+import barqsoft.footballscores.util.ScoreUpdateUtil;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -31,6 +33,7 @@ public class MainActivity extends ActionBarActivity
                     .add(R.id.container, my_main)
                     .commit();
         }
+        ScoreUpdateUtil.update(getApplicationContext());
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -28,11 +29,12 @@ import barqsoft.footballscores.R;
 /**
  * Created by yehya khaled on 3/2/2015.
  */
-public class myFetchService extends IntentService
+public class ScoreFetchService extends IntentService
 {
     public static final String LOG_TAG = "myFetchService";
+    public static final String BROADCAST_ACTION = "barqsoft.footballscores.service.BROADCAST";
 
-    public myFetchService()
+    public ScoreFetchService()
     {
         super("myFetchService");
     }
@@ -56,7 +58,7 @@ public class myFetchService extends IntentService
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        //Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
+        Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
         HttpURLConnection m_connection = null;
         BufferedReader reader = null;
         String JSON_data = null;
@@ -130,8 +132,8 @@ public class myFetchService extends IntentService
                     //processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
                     return;
                 }
-                Log.d("kaushik", "data=" + JSON_data);
                 processJSONdata(JSON_data, getApplicationContext(), true);
+                doBroadcast();
             }
             else
             {
@@ -143,6 +145,13 @@ public class myFetchService extends IntentService
         {
             Log.e(LOG_TAG, e.getMessage());
         }
+    }
+
+    private void doBroadcast()
+    {
+        Intent localIntent = new Intent(BROADCAST_ACTION);
+        // Broadcasts the Intent to receivers in this app.
+        LocalBroadcastManager.getInstance(this).sendBroadcast(localIntent);
     }
 
     private void processJSONdata(String JSONdata, Context mContext, boolean isReal)
@@ -237,6 +246,7 @@ public class myFetchService extends IntentService
                         mTime = mDate.substring(mDate.indexOf(":") + 1);
                         mDate = mDate.substring(0, mDate.indexOf(":"));
 
+                        //Log.d(LOG_TAG, "date=" + mDate);
                         if(! isReal)
                         {
                             //This if statement changes the dummy data's date to match our
@@ -245,6 +255,7 @@ public class myFetchService extends IntentService
                                     86400000));
                             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
                             mDate = mformat.format(fragmentdate);
+
                         }
                     }
                     catch(Exception e)

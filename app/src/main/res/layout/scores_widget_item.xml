@@ -1,0 +1,67 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/half_margins"
+    android:id="@+id/widget_item_container"
+    >
+
+    <TextView
+        android:id="@+id/widget_home_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/widget_score_container"
+        android:gravity="center"
+        android:padding="@dimen/half_margins"
+        android:text="@string/test_text"
+        android:textSize="@dimen/TeamNames"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/widget_score_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/widget_score_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/test_text"
+            android:textSize="@dimen/widget_score"/>
+
+        <TextView
+            android:id="@+id/widget_date_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/test_text"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/widget_away_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/widget_score_container"
+        android:gravity="center"
+        android:padding="@dimen/half_margins"
+        android:text="@string/test_text"
+        android:textSize="@dimen/TeamNames"
+
+        />
+</RelativeLayout>
+
+

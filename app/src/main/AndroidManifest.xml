@@ -3,6 +3,8 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +23,9 @@
 
         <provider
             android:name=".db.ScoresProvider"
-            android:authorities="barqsoft.footballscores"/>
+            android:authorities="barqsoft.footballscores"
+            android:exported="true"
+            />
 
         <activity
             android:name=".activity.AboutActivity"
@@ -31,7 +35,36 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity"/>
         </activity>
-        <service android:name=".service.myFetchService"/>
+        <service android:name=".service.ScoreFetchService"/>
+
+        <!-- For widget -->
+        <receiver android:name=".widget.ScoreWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/score_widget_info" />
+        </receiver>
+
+        <service android:name=".widget.ScoreWidgetService"
+                 android:permission="android.permission.BIND_REMOTEVIEWS"
+                 android:exported="false" />
+
+        <receiver android:name=".service.NetworkBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".service.AppBootReceiver"
+                  android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".service.MidnightAlarmReceiver" />
+
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="5dp"
+        android:paddingTop="@dimen/quarter_margins"
         >
 
         <LinearLayout
@@ -24,7 +24,9 @@
                 android:id="@+id/home_crest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:contentDescription="@string/home_team_crest"
+                />
 
             <TextView
                 android:id="@+id/home_name"
@@ -32,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/test_text"
                 android:textSize="@dimen/TeamNames"/>
         </LinearLayout>
 
@@ -49,7 +50,6 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/test_text"
                 android:textSize="@dimen/Score"/>
 
             <TextView
@@ -59,7 +59,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/test_text"/>
+                />
 
         </LinearLayout>
 
@@ -73,7 +73,9 @@
                 android:id="@+id/away_crest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:contentDescription="@string/away_team_crest"
+                />
 
             <TextView
                 android:id="@+id/away_name"
@@ -81,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="@string/test_text"
                 android:textSize="@dimen/TeamNames"/>
         </LinearLayout>
     </LinearLayout>

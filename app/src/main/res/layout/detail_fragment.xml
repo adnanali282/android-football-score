@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="@dimen/standard_margins">
 
         <TextView
             android:id="@+id/league_textview"
@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/test_text"
             android:textColor="@android:color/black"
             android:textSize="@dimen/League"/>
 
@@ -25,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/test_text"
             android:textColor="@android:color/black"
             android:textSize="@dimen/League"/>
     </LinearLayout>
@@ -44,6 +42,7 @@
             android:gravity="center"
             android:paddingLeft="120dp"
             android:paddingRight="120dp"
+            android:contentDescription="@string/share_text"
             android:text="@string/share_text"/>
     </FrameLayout>
 

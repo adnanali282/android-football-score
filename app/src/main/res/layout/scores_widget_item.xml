@@ -15,7 +15,6 @@
         android:layout_toLeftOf="@+id/widget_score_container"
         android:gravity="center"
         android:padding="@dimen/half_margins"
-        android:text="@string/test_text"
         android:textSize="@dimen/TeamNames"
         />
 
@@ -35,7 +34,6 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/test_text"
             android:textSize="@dimen/widget_score"/>
 
         <TextView
@@ -45,7 +43,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/test_text"/>
+            />
 
     </LinearLayout>
 
@@ -58,7 +56,6 @@
         android:layout_toRightOf="@id/widget_score_container"
         android:gravity="center"
         android:padding="@dimen/half_margins"
-        android:text="@string/test_text"
         android:textSize="@dimen/TeamNames"
 
         />

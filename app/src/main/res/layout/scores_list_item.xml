@@ -5,6 +5,7 @@
               android:background="@drawable/list_item"
               android:elevation="4dp"
               android:orientation="vertical"
+              android:layoutDirection="inherit"
     >
 
     <LinearLayout

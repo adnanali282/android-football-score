@@ -13,10 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import barqsoft.footballscores.R;
-import barqsoft.footballscores.viewholder.ViewHolder;
 import barqsoft.footballscores.activity.MainActivity;
 import barqsoft.footballscores.db.DatabaseContract;
 import barqsoft.footballscores.db.ScoresAdapter;
+import barqsoft.footballscores.viewholder.ViewHolder;
 
 /**
  * A placeholder fragment containing a simple view.

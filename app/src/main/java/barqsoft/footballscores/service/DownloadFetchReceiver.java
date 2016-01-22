@@ -19,6 +19,11 @@ public class DownloadFetchReceiver extends BroadcastReceiver
     private static final String LOG_TAG = DownloadFetchReceiver.class.getSimpleName();
     private static DownloadFetchReceiver mFetchReceiver;
 
+    private DownloadFetchReceiver()
+    {
+        //do nothing
+    }
+
     public static DownloadFetchReceiver getInstance()
     {
         if(mFetchReceiver == null)
@@ -26,11 +31,6 @@ public class DownloadFetchReceiver extends BroadcastReceiver
             mFetchReceiver = new DownloadFetchReceiver();
         }
         return mFetchReceiver;
-    }
-
-    private DownloadFetchReceiver()
-    {
-        //do nothing
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DownloadFetchReceiver extends BroadcastReceiver
         ComponentName componentName = new ComponentName(context, ScoreWidgetProvider.class);
         int[] ids = manager.getAppWidgetIds(componentName);
         Log.d(LOG_TAG, "widgetLen=" + ids.length);
-        for(int i=0;i<ids.length; i++)
+        for(int i = 0; i < ids.length; i++)
         {
             int widgetId = ids[i];
             Log.d(LOG_TAG, "Update::widgetId=" + widgetId);

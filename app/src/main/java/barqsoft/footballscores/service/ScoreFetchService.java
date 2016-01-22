@@ -23,8 +23,8 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import barqsoft.footballscores.db.DatabaseContract;
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.db.DatabaseContract;
 
 /**
  * Created by yehya khaled on 3/2/2015.
@@ -58,7 +58,7 @@ public class ScoreFetchService extends IntentService
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
+        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
         HttpURLConnection m_connection = null;
         BufferedReader reader = null;
         String JSON_data = null;
@@ -129,7 +129,8 @@ public class ScoreFetchService extends IntentService
                 {
                     //if there is no data, call the function on dummy data
                     //this is expected behavior during the off season.
-                    //processJSONdata(getString(R.string.dummy_data), getApplicationContext(), false);
+                    //processJSONdata(getString(R.string.dummy_data), getApplicationContext(),
+                    // false);
                     return;
                 }
                 processJSONdata(JSON_data, getApplicationContext(), true);

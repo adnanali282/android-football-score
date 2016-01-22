@@ -23,6 +23,23 @@ public class AppSharedPref
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(HAS_WIDGETS, hasWidgets);
-        editor.commit();
+        editor.apply();
+    }
+
+    public static int getWidgetDateIndex(int wid, Context context)
+    {
+        String widIdKey = String.valueOf(wid);
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        int dateIndex = settings.getInt(widIdKey, 0);
+        return dateIndex;
+    }
+
+    public static void setWidgetDateIndex(int wid, int index, Context context)
+    {
+        String widIdKey = String.valueOf(wid);
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(widIdKey, index);
+        editor.apply();
     }
 }

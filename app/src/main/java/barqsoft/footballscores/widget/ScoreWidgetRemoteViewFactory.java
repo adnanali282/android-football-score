@@ -24,6 +24,9 @@ import barqsoft.footballscores.util.Utilies;
 public class ScoreWidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory
 {
     private static final String LOG_TAG = ScoreWidgetRemoteViewFactory.class.getSimpleName();
+    public static final String ARG_DATE_TIME = "arg-date-time";
+
+    private long mDateTime;
     private int mAppWidgetId;
     private Context mContext;
     private Cursor mCursor;
@@ -35,6 +38,7 @@ public class ScoreWidgetRemoteViewFactory implements RemoteViewsService.RemoteVi
         mContext = context;
         mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
+        mDateTime = intent.getLongExtra(ARG_DATE_TIME, System.currentTimeMillis());
     }
 
     @Override
@@ -53,7 +57,7 @@ public class ScoreWidgetRemoteViewFactory implements RemoteViewsService.RemoteVi
             mCursor = null;
         }
 
-        Date fragmentdate = new Date(System.currentTimeMillis());
+        Date fragmentdate = new Date(mDateTime);
         SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
         final String[] selectionArgDate = new String[1];
         selectionArgDate[0] = mformat.format(fragmentdate);

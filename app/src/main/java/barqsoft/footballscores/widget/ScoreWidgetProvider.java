@@ -21,25 +21,12 @@ import barqsoft.footballscores.util.Utilies;
  */
 public class ScoreWidgetProvider extends AppWidgetProvider
 {
-    private static final String LOG_TAG = ScoreWidgetProvider.class.getSimpleName();
-
     public static final String TOAST_ACTION = "barqsoft.footballscores.TOAST_ACTION";
     public static final String EXTRA_ITEM = "barqsoft.footballscores.EXTRA_ITEM";
+    private static final String LOG_TAG = ScoreWidgetProvider.class.getSimpleName();
     private static final String ACTION_BACK = "barqsoft.footballscores.BACK_ACTION";
     private static final String ACTION_NEXT = "barqsoft.footballscores.NEXT_ACTION";
     private static final String ARG_WIDGET_ID = "barqsoft.footballscores.WID";
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
-    {
-        Log.d(LOG_TAG, "onUpdate::" + appWidgetIds.length);
-        for(int i = 0; i < appWidgetIds.length; ++ i)
-        {
-            AppSharedPref.setWidgetDateIndex(appWidgetIds[i], 0, context);
-            setAdapter(appWidgetIds[i], System.currentTimeMillis(), appWidgetManager, context);
-        }
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
-    }
 
     private void setAdapter(int wid, long time, AppWidgetManager appWidgetManager, Context context)
     {
@@ -71,7 +58,7 @@ public class ScoreWidgetProvider extends AppWidgetProvider
         {
             rv.setViewVisibility(R.id.widget_next_button, View.INVISIBLE);
         }
-        else if(dateIndex <= -2)
+        else if(dateIndex <= - 2)
         {
             rv.setViewVisibility(R.id.widget_prev_button, View.INVISIBLE);
         }
@@ -93,6 +80,41 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     {
         remoteView.setOnClickPendingIntent(R.id.widget_prev_button, getPrevButtonIntent(wid,
                 context));
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        Log.d(LOG_TAG, "onReceive::" + intent.getAction());
+        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+        if(intent.getAction().equals(TOAST_ACTION))
+        {
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
+            Log.d(LOG_TAG, "Touched view " + viewIndex);
+        }
+        else if(intent.getAction().equals(ACTION_BACK))
+        {
+            triggerBackDateChange(intent.getIntExtra(ARG_WIDGET_ID, - 1), context);
+        }
+        else if(intent.getAction().equals(ACTION_NEXT))
+        {
+            triggerNextDayChange(intent.getIntExtra(ARG_WIDGET_ID, - 1), context);
+        }
+        super.onReceive(context, intent);
+    }
+
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
+    {
+        Log.d(LOG_TAG, "onUpdate::" + appWidgetIds.length);
+        for(int i = 0; i < appWidgetIds.length; ++ i)
+        {
+            AppSharedPref.setWidgetDateIndex(appWidgetIds[i], 0, context);
+            setAdapter(appWidgetIds[i], System.currentTimeMillis(), appWidgetManager, context);
+        }
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -130,34 +152,20 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     }
 
     @Override
-    public void onReceive(Context context, Intent intent)
+    public void onRestored(Context context, int[] oldWidgetIds, int[] newWidgetIds)
     {
-        Log.d(LOG_TAG, "onReceive::" + intent.getAction());
-        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
-        if(intent.getAction().equals(TOAST_ACTION))
-        {
-            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    AppWidgetManager.INVALID_APPWIDGET_ID);
-            int viewIndex = intent.getIntExtra(EXTRA_ITEM, 0);
-            Log.d(LOG_TAG, "Touched view " + viewIndex);
-        }
-        else  if(intent.getAction().equals(ACTION_BACK))
-        {
-            triggerBackDateChange(intent.getIntExtra(ARG_WIDGET_ID, - 1), context);
-        }
-        else if(intent.getAction().equals(ACTION_NEXT))
-        {
-            triggerNextDayChange(intent.getIntExtra(ARG_WIDGET_ID, - 1), context);
-        }
-        super.onReceive(context, intent);
+        super.onRestored(context, oldWidgetIds, newWidgetIds);
     }
 
     private void triggerBackDateChange(int wid, Context context)
     {
         Log.d(LOG_TAG, "triggerBackChange=" + wid);
-        if(wid == -1) return;
+        if(wid == - 1)
+        {
+            return;
+        }
         int dateIndex = AppSharedPref.getWidgetDateIndex(wid, context);
-        if(dateIndex == -2)
+        if(dateIndex == - 2)
         {
             //not allowed - should never happen
             return;
@@ -172,14 +180,17 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     private void triggerNextDayChange(int wid, Context context)
     {
         Log.d(LOG_TAG, "triggerNextDayChange=" + wid);
-        if(wid == -1) return;
+        if(wid == - 1)
+        {
+            return;
+        }
         int dateIndex = AppSharedPref.getWidgetDateIndex(wid, context);
         if(dateIndex == 2)
         {
             //not allowed - should never happen
             return;
         }
-        AppSharedPref.setWidgetDateIndex(wid, ++dateIndex, context);
+        AppSharedPref.setWidgetDateIndex(wid, ++ dateIndex, context);
         long nextTime = getTime(dateIndex);
         AppWidgetManager manager = AppWidgetManager.getInstance(context);
         setAdapter(wid, nextTime, manager, context);
@@ -190,12 +201,6 @@ public class ScoreWidgetProvider extends AppWidgetProvider
     {
         long time = System.currentTimeMillis() + (dateIndex * 86400000);
         return time;
-    }
-
-    @Override
-    public void onRestored(Context context, int[] oldWidgetIds, int[] newWidgetIds)
-    {
-        super.onRestored(context, oldWidgetIds, newWidgetIds);
     }
 
     private PendingIntent getPrevButtonIntent(int wid, Context context)

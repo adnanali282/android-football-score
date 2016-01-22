@@ -23,7 +23,8 @@ public class AlarmUtil
     public static void setupAlarm(Context context)
     {
         Intent intent = new Intent(context, MidnightAlarmReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE, intent, 0);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE,
+                intent, 0);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -31,7 +32,7 @@ public class AlarmUtil
         calendar.set(Calendar.MINUTE, 01);
         calendar.set(Calendar.SECOND, 02);
 
-        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(alarmMgr != null)
         {
             alarmMgr.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(),
@@ -42,8 +43,9 @@ public class AlarmUtil
     public static void cancelAlarm(Context context)
     {
         Intent intent = new Intent(context, MidnightAlarmReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE, intent, 0);
-        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, ALARM_REQUEST_CODE,
+                intent, 0);
+        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if(alarmMgr != null)
         {
             alarmMgr.cancel(alarmIntent);

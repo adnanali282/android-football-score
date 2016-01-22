@@ -7,9 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import barqsoft.footballscores.fragment.PagerFragment;
 import barqsoft.footballscores.R;
-import barqsoft.footballscores.service.ScoreFetchService;
+import barqsoft.footballscores.fragment.PagerFragment;
 import barqsoft.footballscores.util.ScoreUpdateUtil;
 
 public class MainActivity extends ActionBarActivity

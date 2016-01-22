@@ -23,9 +23,8 @@ import barqsoft.footballscores.util.Utilies;
  */
 public class ScoreWidgetRemoteViewFactory implements RemoteViewsService.RemoteViewsFactory
 {
-    private static final String LOG_TAG = ScoreWidgetRemoteViewFactory.class.getSimpleName();
     public static final String ARG_DATE_TIME = "arg-date-time";
-
+    private static final String LOG_TAG = ScoreWidgetRemoteViewFactory.class.getSimpleName();
     private long mDateTime;
     private int mAppWidgetId;
     private Context mContext;

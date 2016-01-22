@@ -16,9 +16,8 @@ import barqsoft.footballscores.util.ScoreUpdateUtil;
 public class NetworkBroadcastReceiver extends BroadcastReceiver
 {
     private static final String LOG_TAG = NetworkBroadcastReceiver.class.getSimpleName();
-
-    private Context mContext;
     private static Handler mHandler;
+    private Context mContext;
 
     public static Handler getHandler()
     {

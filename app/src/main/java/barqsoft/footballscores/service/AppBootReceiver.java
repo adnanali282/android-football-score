@@ -19,7 +19,7 @@ public class AppBootReceiver extends BroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
         Log.d(LOG_TAG, "onReceive");
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED"))
+        if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED"))
         {
             // Set the alarm here.
             Log.d(LOG_TAG, "boot Received - set Alarm");

@@ -10,7 +10,7 @@
     <string name="bundesliga" translatable="true">Bundesliga</string>
     <string name="premierleague" translatable="false">Premier League</string>
     <string name="primeradivison" translatable="false">Primera Division</string>
-    <string name="seriaa" translatable="true">Series A</string>
+    <string name="seriesa" translatable="true">Series A</string>
     <string name="matchday_text" translatable="true">Match day</string>
     <string name="group_stage_text" translatable="true">Group stages</string>
     <string name="first_knockout_round" translatable="true">First knockout round</string>
@@ -36,6 +36,8 @@
     <string name="home_team_crest" translatable="true">Home Team Crest</string>
     <string name="away_team_crest" translatable="true">Away Team Crest</string>
 
-    <string name="widget_next">Next</string>
-    <string name="widget_prev">Previous</string>
+    <string name="widget_next" translatable="true">Next</string>
+    <string name="widget_prev" translatable="true">Previous</string>
+    <string name="no_known_league" translatable="true">Not known League Please report</string>
+
 </resources>
